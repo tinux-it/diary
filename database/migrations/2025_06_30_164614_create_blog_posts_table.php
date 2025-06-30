@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('subject');
             $table->longText('content');
             $table->string('image')->nullable();
-            $table->date('date');
+            $table->dateTime('date');
             $table->string('state')->default('draft'); // draft, published, archived
             $table->boolean('is_visible')->default(true);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

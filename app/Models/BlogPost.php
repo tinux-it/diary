@@ -21,7 +21,7 @@ class BlogPost extends Model
     ];
 
     protected $casts = [
-        'date' => 'date',
+        'date' => 'datetime',
         'is_visible' => 'boolean',
     ];
 

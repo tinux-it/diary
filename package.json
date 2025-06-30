@@ -7,10 +7,12 @@
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.11",
+        "@tinymce/tinymce-webcomponent": "^2.2.0",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.4",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.0",
+        "quill": "^2.0.3",
         "tailwindcss": "^4.1.11",
         "vite": "^6.0"
     },

@@ -55,10 +55,6 @@ $resetForm = function () {
     $this->date = now()->format('Y-m-d');
 };
 
-$formatText = function ($command, $value = null) {
-    $this->dispatch('format-text', command: $command, value: $value);
-};
-
 ?>
 
 <div class="max-w-4xl mx-auto space-y-6">
@@ -94,76 +90,14 @@ $formatText = function ($command, $value = null) {
                     @error('subject') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <!-- Content with Rich Text Editor -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Content</label>
-                    
-                    <!-- Rich Text Toolbar -->
-                    <div class="border border-gray-300 rounded-t-md bg-gray-50 dark:bg-gray-700 dark:border-gray-600 p-2 flex flex-wrap gap-1">
-                        <button type="button" wire:click="formatText('bold')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Bold">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M12.6 18H6V2h4.5a4.5 4.5 0 014.5 4.5 4.5 4.5 0 01-4.5 4.5H10v7h2.6zM10 8h2.5a2.5 2.5 0 000-5H10v5z"/>
-                            </svg>
-                        </button>
-                        <button type="button" wire:click="formatText('italic')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Italic">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4h-8z"/>
-                            </svg>
-                        </button>
-                        <button type="button" wire:click="formatText('underline')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Underline">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M16 9A6 6 0 114 9V1a1 1 0 012 0v8a4 4 0 108 0V1a1 1 0 012 0v8z"/>
-                            </svg>
-                        </button>
-                        <div class="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1"></div>
-                        <button type="button" wire:click="formatText('insertUnorderedList')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Bullet List">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                            </svg>
-                        </button>
-                        <button type="button" wire:click="formatText('insertOrderedList')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Numbered List">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-                            </svg>
-                        </button>
-                        <div class="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1"></div>
-                        <button type="button" wire:click="formatText('justifyLeft')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Align Left">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
-                            </svg>
-                        </button>
-                        <button type="button" wire:click="formatText('justifyCenter')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Align Center">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm2 4a1 1 0 00-1 1v2a1 1 0 001 1h10a1 1 0 001-1V9a1 1 0 00-1-1H5zm0 6a1 1 0 00-1 1v2a1 1 0 001 1h10a1 1 0 001-1v-2a1 1 0 00-1-1H5z"/>
-                            </svg>
-                        </button>
-                        <button type="button" wire:click="formatText('justifyRight')" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded dark:text-gray-300 dark:hover:bg-gray-600" title="Align Right">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <!-- Rich Text Editor -->
-                    <div 
-                        wire:model="content"
-                        x-data="{ 
-                            content: @entangle('content'),
-                            init() {
-                                this.$refs.editor.addEventListener('input', () => {
-                                    this.content = this.$refs.editor.innerHTML;
-                                });
-                                this.$refs.editor.innerHTML = this.content;
-                            }
-                        }"
-                        x-ref="editor"
-                        contenteditable="true"
-                        class="mt-0 block w-full border border-gray-300 rounded-b-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white min-h-[300px] p-4 overflow-y-auto"
-                        style="min-height: 300px;"
-                        placeholder="Write your blog post content here..."
-                    ></div>
-                    @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <!-- Content with TinyMCE -->
+                <div wire:ignore>
+                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Content</label>
+                    <textarea id="content" class="tinymce block w-full border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        {{ old('content', $content) }}
+                    </textarea>
                 </div>
+                @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                 <!-- Image Upload -->
                 <div>
@@ -235,12 +169,3 @@ $formatText = function ($command, $value = null) {
         </div>
     </form>
 </div>
-
-<script>
-document.addEventListener('livewire:init', () => {
-    Livewire.on('format-text', (event) => {
-        const { command, value } = event;
-        document.execCommand(command, false, value);
-    });
-});
-</script>
