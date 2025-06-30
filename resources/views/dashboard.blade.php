@@ -148,7 +148,7 @@
 
                                     <!-- Content Preview -->
                                     <div class="text-gray-600 mb-4 line-clamp-3">
-                                        {!! Str::limit(strip_tags($blogPost->content), 200) !!}
+                                        {!! Str::limit($blogPost->content, 200) !!}
                                     </div>
 
                                     <!-- Meta Information -->

@@ -74,7 +74,7 @@
 
                     <!-- Content -->
                     <div class="prose max-w-none">
-                        <div class="text-gray-700 leading-relaxed text-lg">
+                        <div class="ql-editor">
                             {!! $blogPost->content !!}
                         </div>
                     </div>

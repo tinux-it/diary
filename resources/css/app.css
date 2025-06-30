@@ -61,6 +61,66 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
+/* Quill Content Styling */
+.ql-editor {
+    @apply text-gray-700 leading-relaxed;
+}
+
+.ql-editor p {
+    @apply mb-4;
+}
+
+.ql-editor h1 {
+    @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.ql-editor h2 {
+    @apply text-xl font-bold text-gray-900 mb-3;
+}
+
+.ql-editor h3 {
+    @apply text-lg font-bold text-gray-900 mb-3;
+}
+
+.ql-editor strong {
+    @apply font-semibold;
+}
+
+.ql-editor em {
+    @apply italic;
+}
+
+.ql-editor ul {
+    @apply list-disc list-inside mb-4 space-y-1;
+}
+
+.ql-editor ol {
+    @apply list-decimal list-inside mb-4 space-y-1;
+}
+
+.ql-editor blockquote {
+    @apply border-l-4 border-orange-300 pl-4 italic text-gray-600 mb-4;
+}
+
+.ql-editor a {
+    @apply text-orange-600 hover:text-orange-700 underline;
+}
+
+/* Line clamp utilities for content previews */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

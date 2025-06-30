@@ -5,16 +5,17 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [BlogController::class, 'index'])->name('home');
+
+// Public blog post viewing (no auth required)
+Route::get('post/{blogPost}', [BlogController::class, 'showPublic'])->name('blog.show.public');
 
 Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    // Blog routes
+    // Blog routes (private dashboard)
     Route::get('blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('blog/store', [BlogController::class, 'store'])->name('blog.store');
     Route::get('blog/{blogPost}', [BlogController::class, 'show'])->name('blog.show');

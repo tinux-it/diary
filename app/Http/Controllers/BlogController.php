@@ -8,6 +8,26 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
+    public function index()
+    {
+        $blogPosts = BlogPost::where('state', 'published')
+            ->where('is_visible', true)
+            ->orderBy('date', 'desc')
+            ->paginate(12);
+
+        return view('welcome', compact('blogPosts'));
+    }
+
+    public function showPublic(BlogPost $blogPost)
+    {
+        // Only allow viewing published and public posts
+        if ($blogPost->state !== 'published' || !$blogPost->is_visible) {
+            abort(404);
+        }
+
+        return view('blog.show-public', compact('blogPost'));
+    }
+
     public function create()
     {
         return view('blog.create');
