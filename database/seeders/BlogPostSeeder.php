@@ -67,4 +67,4 @@ class BlogPostSeeder extends Seeder
         $this->command->info('🔑 Password: dagboek123');
         $this->command->info('📝 Created 4 sample posts (1 private, 2 public, 1 draft)');
     }
-} 
+}

@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
         // Search functionality
         if ($request->filled('search')) {
-            $query->where('subject', 'like', '%' . $request->search . '%');
+            $query->where('subject', 'like', '%'.$request->search.'%');
         }
 
         // Filter functionality
@@ -25,4 +25,4 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('blogPosts'));
     }
-} 
+}

@@ -21,7 +21,7 @@ class BlogController extends Controller
     public function showPublic(BlogPost $blogPost)
     {
         // Only allow viewing published and public posts
-        if ($blogPost->state !== 'published' || !$blogPost->is_visible) {
+        if ($blogPost->state !== 'published' || ! $blogPost->is_visible) {
             abort(404);
         }
 
@@ -115,7 +115,7 @@ class BlogController extends Controller
 
     public function toggleVisibility(BlogPost $blogPost)
     {
-        $blogPost->update(['is_visible' => !$blogPost->is_visible]);
+        $blogPost->update(['is_visible' => ! $blogPost->is_visible]);
 
         return redirect()->route('dashboard')->with('message', 'Zichtbaarheid van dagboek entry bijgewerkt!');
     }
@@ -125,7 +125,7 @@ class BlogController extends Controller
      */
     public static function getImageUrl($imagePath)
     {
-        if (!$imagePath) {
+        if (! $imagePath) {
             return null;
         }
 

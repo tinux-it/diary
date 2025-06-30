@@ -12,6 +12,7 @@ class BlogPosts extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $filter = 'all'; // all, draft, published, archived
 
     public function render(): View
@@ -19,7 +20,7 @@ class BlogPosts extends Component
         $blogPosts = BlogPost::query()
             ->where('user_id', auth()->id())
             ->when($this->search, function ($query) {
-                $query->where('subject', 'like', '%' . $this->search . '%');
+                $query->where('subject', 'like', '%'.$this->search.'%');
             })
             ->when($this->filter !== 'all', function ($query) {
                 $query->where('state', $this->filter);
@@ -34,7 +35,7 @@ class BlogPosts extends Component
 
     public function toggleVisibility(BlogPost $blogPost): void
     {
-        $blogPost->update(['is_visible' => !$blogPost->is_visible]);
+        $blogPost->update(['is_visible' => ! $blogPost->is_visible]);
     }
 
     public function deleteBlogPost(BlogPost $blogPost): void

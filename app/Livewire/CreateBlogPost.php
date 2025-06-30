@@ -12,10 +12,15 @@ class CreateBlogPost extends Component
     use WithFileUploads;
 
     public string $subject = '';
+
     public string $content = '';
+
     public $image;
+
     public string $date;
+
     public string $state = 'draft';
+
     public bool $is_visible = true;
 
     protected $rules = [
