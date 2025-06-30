@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dagboek-ingress
+  namespace: tomemming
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt_prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - dagboek.tomemming.nl
+  rules:
+    - host: dagboek.tomemming.nl
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dagboek-service
+                port:
+                  number: 80

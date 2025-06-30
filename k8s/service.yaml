@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dagboek-service
+  namespace: tomemming
+spec:
+  selector:
+    app: dagboek
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dagboek
+  namespace: tomemming
+spec:
+  selector:
+    matchLabels:
+      app: dagboek
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dagboek
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      initContainers:
+        - name: copy-app
+          image: ghcr.io/tinux-it/diary:latest
+          command: [ "sh", "-c", "cp -r /app/. /app-shared" ]
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+          volumeMounts:
+            - name: app-volume
+              mountPath: /app-shared
+
+      containers:
+        - name: php-fpm
+          image: ghcr.io/tinux-it/diary:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: app-volume
+              mountPath: /app
+            - name: php-socket
+              mountPath: /php-socket
+          envFrom:
+            - secretRef:
+                name: dagboek-secrets
+
+        - name: nginx
+          image: nginx:stable-alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          volumeMounts:
+            - name: app-volume
+              mountPath: /app
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: php-socket
+              mountPath: /php-socket
+          envFrom:
+            - secretRef:
+                name: dagboek-secrets
+
+      volumes:
+        - name: app-volume
+          emptyDir: {}
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: php-socket
+          emptyDir: {}
