@@ -62,9 +62,6 @@ jobs:
           npm install
           npm run build
 
-      - name: Optimize Filament
-        run: php artisan filament:optimize
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
