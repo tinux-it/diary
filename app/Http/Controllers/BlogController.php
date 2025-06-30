@@ -38,9 +38,19 @@ class BlogController extends Controller
         $validated = $request->validate([
             'subject' => 'required|min:3|max:255',
             'content' => 'required|min:10',
-            'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|image|max:25600',
             'state' => 'required|in:draft,published,archived',
             'is_visible' => 'nullable|boolean',
+        ], [
+            'subject.required' => 'De titel van het bericht is verplicht.',
+            'subject.min' => 'De titel moet minimaal 3 karakters bevatten.',
+            'subject.max' => 'De titel mag maximaal 255 karakters bevatten.',
+            'content.required' => 'De inhoud van het bericht is verplicht.',
+            'content.min' => 'De inhoud moet minimaal 10 karakters bevatten.',
+            'image.image' => 'Het bestand moet een afbeelding zijn.',
+            'image.max' => 'De afbeelding mag maximaal 25MB groot zijn.',
+            'state.required' => 'De status is verplicht.',
+            'state.in' => 'De geselecteerde status is ongeldig.',
         ]);
 
         if ($request->hasFile('image')) {
@@ -71,7 +81,7 @@ class BlogController extends Controller
         $validated = $request->validate([
             'subject' => 'required|min:3|max:255',
             'content' => 'required|min:10',
-            'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|image',
             'state' => 'required|in:draft,published,archived',
             'is_visible' => 'nullable|boolean',
         ]);

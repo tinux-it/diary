@@ -38,6 +38,31 @@
                 </div>
             @endif
 
+            <!-- Error Messages -->
+            @if ($errors->any())
+                <div class="mb-6 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-2xl p-4 shadow-sm">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800 mb-2">
+                                Er zijn fouten opgetreden bij het bijwerken van je bericht:
+                            </h3>
+                            <div class="text-sm text-red-700">
+                                <ul class="list-disc list-inside space-y-1">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- Form -->
             <form action="{{ route('blog.update', $blogPost) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                 @csrf
@@ -56,11 +81,16 @@
                                        name="subject"
                                        id="subject"
                                        value="{{ old('subject', $blogPost->subject) }}"
-                                       class="block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-gray-800"
+                                       class="block w-full px-4 py-3 border {{ $errors->has('subject') ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:ring-orange-500 focus:border-orange-500' }} rounded-xl shadow-sm placeholder-gray-400 focus:ring-2 transition-all duration-200 text-gray-800"
                                        placeholder="Hoe wil je het bericht van vandaag noemen?"
                                        required>
                                 @error('subject')
-                                    <p class="text-red-500 text-sm font-medium">{{ $message }}</p>
+                                    <div class="flex items-center mt-2 text-red-600">
+                                        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-sm font-medium">{{ $message }}</p>
+                                    </div>
                                 @enderror
                             </div>
 
@@ -71,14 +101,19 @@
                                 </label>
                                 <div class="relative">
                                     <div id="quill-editor"
-                                         class="quill-editor bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
+                                         class="quill-editor bg-white border {{ $errors->has('content') ? 'border-red-300' : 'border-gray-200' }} rounded-xl shadow-sm overflow-hidden"
                                          style="height: 400px; min-height: 400px;">
                                         {!! old('content', $blogPost->content) !!}
                                     </div>
                                     <textarea name="content" id="content" class="hidden">{{ old('content', $blogPost->content) }}</textarea>
                                 </div>
                                 @error('content')
-                                    <p class="text-red-500 text-sm font-medium">{{ $message }}</p>
+                                    <div class="flex items-center mt-2 text-red-600">
+                                        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-sm font-medium">{{ $message }}</p>
+                                    </div>
                                 @enderror
                             </div>
 
@@ -86,6 +121,8 @@
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-800">
                                     Voeg een Foto Toe (Optioneel)
+                                    <br>
+                                    <small>Deze afbeelding wordt getoond op het overzicht en bovenaan de pagina zelf. Meer foto's kun je in het bericht hierboven toevoegen.</small>
                                 </label>
                                 @if($blogPost->image)
                                     <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
@@ -116,7 +153,12 @@
                                     </div>
                                 </div>
                                 @error('image')
-                                    <p class="text-red-500 text-sm font-medium">{{ $message }}</p>
+                                    <div class="flex items-center mt-2 text-red-600">
+                                        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-sm font-medium">{{ $message }}</p>
+                                    </div>
                                 @enderror
                             </div>
                         </div>
@@ -136,13 +178,18 @@
                                 </label>
                                 <select name="state"
                                         id="state"
-                                        class="block w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200">
+                                        class="block w-full px-4 py-3 border {{ $errors->has('state') ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:ring-orange-500 focus:border-orange-500' }} rounded-xl text-gray-800 shadow-sm focus:ring-2 transition-all duration-200">
                                     <option value="draft" {{ old('state', $blogPost->state) == 'draft' ? 'selected' : '' }}>Concept</option>
                                     <option value="published" {{ old('state', $blogPost->state) == 'published' ? 'selected' : '' }}>Gepubliceerd</option>
                                     <option value="archived" {{ old('state', $blogPost->state) == 'archived' ? 'selected' : '' }}>Gearchiveerd</option>
                                 </select>
                                 @error('state')
-                                    <p class="text-red-500 text-sm font-medium">{{ $message }}</p>
+                                    <div class="flex items-center mt-2 text-red-600">
+                                        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-sm font-medium">{{ $message }}</p>
+                                    </div>
                                 @enderror
                             </div>
                         </div>
@@ -162,11 +209,12 @@
                                     <input type="checkbox"
                                            name="is_visible"
                                            id="is_visible"
+                                           value="1"
                                            class="sr-only"
                                            {{ old('is_visible', $blogPost->is_visible) ? 'checked' : '' }}>
                                     <label for="is_visible"
-                                           class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition-colors duration-200 cursor-pointer hover:bg-gray-300">
-                                        <span class="inline-block h-4 w-4 transform rounded-full bg-white transition duration-200 ease-in-out translate-x-1"></span>
+                                           class="toggle-switch relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 cursor-pointer {{ old('is_visible', $blogPost->is_visible) ? 'active' : '' }}">
+                                        <span class="inline-block h-4 w-4 transform rounded-full bg-white transition duration-200 ease-in-out {{ old('is_visible', $blogPost->is_visible) ? 'translate-x-6' : 'translate-x-1' }}"></span>
                                     </label>
                                 </div>
                             </div>
@@ -266,5 +314,189 @@
         .ql-editor a:hover {
             color: rgb(249 115 22);
         }
+
+        /* Make images resizable */
+        .ql-editor img {
+            resize: both;
+            overflow: auto;
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .ql-editor img:hover {
+            border-color: rgb(251 146 60);
+        }
+
+        .ql-editor img:focus {
+            border-color: rgb(249 115 22);
+            outline: none;
+        }
+
+        /* Custom toggle switch styling */
+        .toggle-switch {
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .toggle-switch.active {
+            background-color: rgb(249 115 22);
+        }
+
+        .toggle-switch:not(.active) {
+            background-color: rgb(229 231 235);
+        }
+
+        .toggle-switch:hover {
+            background-color: rgb(251 146 60);
+        }
+
+        .toggle-switch:not(.active):hover {
+            background-color: rgb(209 213 219);
+        }
     </style>
+
+    <script>
+        // Handle toggle switch functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleInput = document.getElementById('is_visible');
+            const toggleLabel = toggleInput.nextElementSibling;
+
+            // Set initial state
+            if (toggleInput.checked) {
+                toggleLabel.classList.add('active');
+                toggleLabel.querySelector('span').classList.add('translate-x-6');
+                toggleLabel.querySelector('span').classList.remove('translate-x-1');
+            } else {
+                toggleLabel.classList.remove('active');
+                toggleLabel.querySelector('span').classList.remove('translate-x-6');
+                toggleLabel.querySelector('span').classList.add('translate-x-1');
+            }
+
+            // Handle toggle click
+            toggleLabel.addEventListener('click', function() {
+                toggleInput.checked = !toggleInput.checked;
+
+                if (toggleInput.checked) {
+                    toggleLabel.classList.add('active');
+                    toggleLabel.querySelector('span').classList.add('translate-x-6');
+                    toggleLabel.querySelector('span').classList.remove('translate-x-1');
+                } else {
+                    toggleLabel.classList.remove('active');
+                    toggleLabel.querySelector('span').classList.remove('translate-x-6');
+                    toggleLabel.querySelector('span').classList.add('translate-x-1');
+                }
+            });
+
+            // Handle image upload preview
+            const imageInput = document.getElementById('image');
+            const imageUploadArea = imageInput.closest('.space-y-2').querySelector('.mt-1');
+            
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    // Show loading state
+                    imageUploadArea.innerHTML = `
+                        <div class="flex items-center justify-center px-6 py-8">
+                            <div class="text-center">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-2"></div>
+                                <p class="text-sm text-gray-600">Afbeelding wordt geladen...</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Create preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imageUploadArea.innerHTML = `
+                            <div class="relative">
+                                <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-cover rounded-2xl shadow-lg">
+                                <div class="absolute top-2 right-2">
+                                    <button type="button" onclick="removeNewImage()" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors duration-200">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                    <div class="flex items-center text-green-700">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-sm font-medium">Nieuwe afbeelding geselecteerd: ${file.name}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        // Function to remove new selected image (restore to original state)
+        function removeNewImage() {
+            const imageInput = document.getElementById('image');
+            const imageUploadArea = imageInput.closest('.space-y-2').querySelector('.mt-1');
+            
+            // Reset input
+            imageInput.value = '';
+            
+            // Check if there's an existing image to show
+            const existingImageContainer = document.querySelector('.mb-4.p-4.bg-orange-50');
+            if (existingImageContainer) {
+                // Show existing image info
+                imageUploadArea.innerHTML = `
+                    <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
+                        <div class="flex items-center space-x-4">
+                            <img src="${existingImageContainer.querySelector('img').src}" alt="Current image" class="h-20 w-20 object-cover rounded-lg shadow-sm">
+                            <div>
+                                <p class="text-sm font-medium text-gray-800">Huidige foto</p>
+                                <p class="text-xs text-gray-500">Upload een nieuwe foto om deze te vervangen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center px-6 pt-8 pb-8 border-2 border-dashed border-orange-200 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200">
+                        <div class="space-y-4 text-center">
+                            <div class="flex justify-center">
+                                <svg class="mx-auto h-12 w-12 text-orange-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="image" class="relative cursor-pointer bg-white rounded-lg font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500 transition-colors duration-200 px-4 py-2 border border-orange-200">
+                                    <span>Kies een foto</span>
+                                    <input id="image" name="image" type="file" class="sr-only" accept="image/*">
+                                </label>
+                                <p class="pl-3 self-center">of sleep en zet neer</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PNG, JPG, GIF tot 1MB</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // No existing image, show empty upload area
+                imageUploadArea.innerHTML = `
+                    <div class="flex justify-center px-6 pt-8 pb-8 border-2 border-dashed border-orange-200 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200">
+                        <div class="space-y-4 text-center">
+                            <div class="flex justify-center">
+                                <svg class="mx-auto h-12 w-12 text-orange-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="image" class="relative cursor-pointer bg-white rounded-lg font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500 transition-colors duration-200 px-4 py-2 border border-orange-200">
+                                    <span>Kies een foto</span>
+                                    <input id="image" name="image" type="file" class="sr-only" accept="image/*">
+                                </label>
+                                <p class="pl-3 self-center">of sleep en zet neer</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PNG, JPG, GIF tot 1MB</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    </script>
 </x-layouts.app>

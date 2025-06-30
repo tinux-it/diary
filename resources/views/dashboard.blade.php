@@ -17,7 +17,7 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        Nieuwe Entry Schrijven
+                        Nieuw bericht schrijven
                     </a>
                 </div>
             </div>
@@ -146,6 +146,15 @@
                                         </div>
                                     </div>
 
+                                    <!-- Featured Image -->
+                                    @if($blogPost->image)
+                                        <div class="mb-4">
+                                            <img src="{{ Storage::url($blogPost->image) }}" 
+                                                 alt="{{ $blogPost->subject }}" 
+                                                 class="w-20 h-20 object-cover rounded-xl shadow-md border border-orange-100">
+                                        </div>
+                                    @endif
+
                                     <!-- Content Preview -->
                                     <div class="text-gray-600 mb-4 line-clamp-3">
                                         {!! Str::limit($blogPost->content, 200) !!}
@@ -247,7 +256,7 @@
             @if($blogPosts->hasPages())
                 <div class="mt-8">
                     {{ $blogPosts->links() }}
-                </div>
+        </div>
             @endif
         </div>
     </div>

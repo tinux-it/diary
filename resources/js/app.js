@@ -20,6 +20,32 @@ document.addEventListener('DOMContentLoaded', function () {
             placeholder: 'Begin met het schrijven van je gedachten...'
         });
 
+        // Add custom image resize functionality
+        quill.on('editor-change', function(eventName) {
+            if (eventName === 'text-change') {
+                // Make images resizable
+                const images = quill.root.querySelectorAll('img');
+                images.forEach(function(img) {
+                    if (!img.classList.contains('resizable')) {
+                        img.classList.add('resizable');
+                        img.style.maxWidth = '100%';
+                        img.style.height = 'auto';
+                        img.style.cursor = 'pointer';
+                        
+                        // Add resize functionality
+                        img.addEventListener('click', function() {
+                            this.style.outline = '2px solid #f97316';
+                            this.style.outlineOffset = '2px';
+                        });
+                        
+                        img.addEventListener('blur', function() {
+                            this.style.outline = 'none';
+                        });
+                    }
+                });
+            }
+        });
+
         // Sync Quill content with hidden textarea for form submission
         const textarea = element.nextElementSibling;
         if (textarea && textarea.tagName === 'TEXTAREA') {

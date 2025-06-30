@@ -97,7 +97,7 @@
                             <div class="mb-8">
                                 <img src="{{ Storage::url($blogPost->image) }}"
                                      alt="{{ $blogPost->subject }}"
-                                     class="w-full h-80 object-cover rounded-2xl shadow-lg">
+                                     class="w-full h-80 object-contain rounded-2xl shadow-lg">
                             </div>
                         @endif
 
