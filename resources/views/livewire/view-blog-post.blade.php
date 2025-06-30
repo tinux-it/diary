@@ -32,13 +32,13 @@ mount(function ($postId) {
                                 </svg>
                             </button>
                         </div>
-                        
+
                         @if($post->image)
                             <div class="mb-4">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->subject }}" class="w-full h-64 object-cover rounded-lg">
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->subject }}" class="w-full h-64 object-contain rounded-lg">
                             </div>
                         @endif
-                        
+
                         <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
                             <span>{{ $post->date->format('M d, Y') }}</span>
                             <span>•</span>
@@ -53,7 +53,7 @@ mount(function ($postId) {
                                 </span>
                             @endif
                         </div>
-                        
+
                         <div class="prose max-w-none dark:prose-invert">
                             <div class="text-gray-700 dark:text-gray-300">
                                 {!! $post->content !!}
@@ -69,4 +69,4 @@ mount(function ($postId) {
             </div>
         </div>
     </div>
-</div> 
+</div>

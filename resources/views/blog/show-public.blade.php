@@ -95,9 +95,9 @@
                         <!-- Featured Image -->
                         @if($blogPost->image)
                             <div class="mb-8">
-                                <img src="{{ Storage::url($blogPost->image) }}"
+                                <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
                                      alt="{{ $blogPost->subject }}"
-                                     class="w-full h-80 object-contain rounded-2xl shadow-lg">
+                                     class="w-full h-64 object-contain rounded-2xl shadow-lg">
                             </div>
                         @endif
 

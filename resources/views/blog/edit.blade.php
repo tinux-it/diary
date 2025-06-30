@@ -127,7 +127,7 @@
                                 @if($blogPost->image)
                                     <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
                                         <div class="flex items-center space-x-4">
-                                            <img src="{{ Storage::url($blogPost->image) }}" alt="Current image" class="h-20 w-20 object-cover rounded-lg shadow-sm">
+                                            <img src="{{ Storage::disk('minio')->url($blogPost->image) }}" alt="Current image" class="h-20 w-20 object-contain rounded-lg shadow-sm">
                                             <div>
                                                 <p class="text-sm font-medium text-gray-800">Huidige foto</p>
                                                 <p class="text-xs text-gray-500">Upload een nieuwe foto om deze te vervangen</p>
@@ -392,7 +392,7 @@
             // Handle image upload preview
             const imageInput = document.getElementById('image');
             const imageUploadArea = imageInput.closest('.space-y-2').querySelector('.mt-1');
-            
+
             imageInput.addEventListener('change', function() {
                 const file = this.files[0];
                 if (file) {
@@ -405,13 +405,13 @@
                             </div>
                         </div>
                     `;
-                    
+
                     // Create preview
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         imageUploadArea.innerHTML = `
                             <div class="relative">
-                                <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-cover rounded-2xl shadow-lg">
+                                <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-contain rounded-2xl shadow-lg">
                                 <div class="absolute top-2 right-2">
                                     <button type="button" onclick="removeNewImage()" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors duration-200">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -439,10 +439,10 @@
         function removeNewImage() {
             const imageInput = document.getElementById('image');
             const imageUploadArea = imageInput.closest('.space-y-2').querySelector('.mt-1');
-            
+
             // Reset input
             imageInput.value = '';
-            
+
             // Check if there's an existing image to show
             const existingImageContainer = document.querySelector('.mb-4.p-4.bg-orange-50');
             if (existingImageContainer) {
@@ -450,7 +450,7 @@
                 imageUploadArea.innerHTML = `
                     <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
                         <div class="flex items-center space-x-4">
-                            <img src="${existingImageContainer.querySelector('img').src}" alt="Current image" class="h-20 w-20 object-cover rounded-lg shadow-sm">
+                            <img src="{{ Storage::disk('minio')->url($blogPost->image) }}" alt="Current image" class="h-20 w-20 object-contain rounded-lg shadow-sm">
                             <div>
                                 <p class="text-sm font-medium text-gray-800">Huidige foto</p>
                                 <p class="text-xs text-gray-500">Upload een nieuwe foto om deze te vervangen</p>

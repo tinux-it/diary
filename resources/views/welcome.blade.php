@@ -20,7 +20,7 @@
         <!-- Login Button -->
         <div class="absolute top-4 right-4">
                     @auth
-                <a href="{{ url('/dashboard') }}" 
+                <a href="{{ url('/dashboard') }}"
                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium text-sm rounded-xl shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -28,7 +28,7 @@
                     Mijn Dagboek
                         </a>
                     @else
-                <a href="{{ route('login') }}" 
+                <a href="{{ route('login') }}"
                    class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm border border-orange-200 text-orange-700 font-medium text-sm rounded-xl shadow-sm hover:shadow-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -77,9 +77,9 @@
                                                 <!-- Featured Image -->
                                                 @if($blogPost->image)
                                                     <div class="flex-shrink-0">
-                                                        <img src="{{ Storage::url($blogPost->image) }}" 
-                                                             alt="{{ $blogPost->subject }}" 
-                                                             class="w-24 h-24 object-cover rounded-xl shadow-md border border-orange-200">
+                                                        <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
+                                                             alt="{{ $blogPost->subject }}"
+                                                             class="w-24 h-24 object-contain rounded-xl shadow-md border border-orange-200">
                                                     </div>
                                                 @endif
 
@@ -159,7 +159,7 @@
                                         </div>
                                     @else
                                         <div class="mt-6">
-                                            <a href="{{ route('login') }}" 
+                                            <a href="{{ route('login') }}"
                                                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-semibold text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />

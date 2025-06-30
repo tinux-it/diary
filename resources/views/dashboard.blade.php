@@ -149,9 +149,9 @@
                                     <!-- Featured Image -->
                                     @if($blogPost->image)
                                         <div class="mb-4">
-                                            <img src="{{ Storage::url($blogPost->image) }}" 
-                                                 alt="{{ $blogPost->subject }}" 
-                                                 class="w-20 h-20 object-cover rounded-xl shadow-md border border-orange-100">
+                                            <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
+                                                 alt="{{ $blogPost->subject }}"
+                                                 class="w-20 h-20 object-contain rounded-xl shadow-md border border-orange-100">
                                         </div>
                                     @endif
 

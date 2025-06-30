@@ -394,7 +394,7 @@
                     reader.onload = function(e) {
                         previewContainer.innerHTML = `
                 <div class="relative mt-4">
-                    <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-cover rounded-2xl shadow-lg">
+                    <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-contain rounded-2xl shadow-lg">
                     <div class="absolute top-2 right-2">
                         <button type="button" onclick="removeImage()" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors duration-200">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
