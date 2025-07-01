@@ -1,23 +1,23 @@
 <x-layouts.app :title="$blogPost->subject">
-    <div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
+    <div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-4 sm:py-8">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
+            <div class="mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                     <div class="space-y-2">
-                        <h1 class="text-3xl font-bold text-gray-800 tracking-tight">{{ $blogPost->subject }}</h1>
-                        <p class="text-lg text-gray-600">Bekijk je dagboek entry</p>
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight">{{ $blogPost->subject }}</h1>
+                        <p class="text-base sm:text-lg text-gray-600">Bekijk je dagboek entry</p>
                     </div>
-                    <div class="flex items-center space-x-3">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                         <a href="{{ route('blog.edit', $blogPost) }}"
-                           class="inline-flex items-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-medium text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                           class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-medium text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 w-full sm:w-auto">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                             Bewerken
                         </a>
                         <a href="{{ route('dashboard') }}"
-                           class="inline-flex items-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-medium text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                           class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-medium text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 w-full sm:w-auto">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
@@ -29,16 +29,16 @@
 
             <!-- Blog Post Content -->
             <div class="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden">
-                <div class="px-6 py-8 sm:px-8">
+                <div class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
                     <!-- Meta Information -->
-                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-gray-500 mb-6">
                         <span class="flex items-center">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                             {{ $blogPost->date->format('j M Y') }}
                         </span>
-                        <span>•</span>
+                        <span class="hidden sm:inline">•</span>
                         <span class="capitalize">
                             @if($blogPost->state === 'published') Gepubliceerd
                             @elseif($blogPost->state === 'draft') Concept
@@ -65,23 +65,23 @@
 
                     <!-- Featured Image -->
                     @if($blogPost->image)
-                        <div class="mb-8">
+                        <div class="mb-6 sm:mb-8">
                             <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
                                  alt="{{ $blogPost->subject }}"
-                                 class="w-full h-64 object-contain rounded-2xl shadow-lg">
+                                 class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                         </div>
                     @endif
 
                     <!-- Content -->
-                    <div class="prose max-w-none">
+                    <div class="prose max-w-none prose-sm sm:prose-base">
                         <div class="ql-editor">
                             {!! $blogPost->content !!}
                         </div>
                     </div>
 
                     <!-- Created/Updated Info -->
-                    <div class="mt-8 pt-6 border-t border-orange-100">
-                        <div class="text-sm text-gray-500">
+                    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-orange-100">
+                        <div class="text-sm text-gray-500 space-y-1">
                             <p class="flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -89,7 +89,7 @@
                                 Aangemaakt: {{ $blogPost->created_at->format('j M Y \o\m g:i') }}
                             </p>
                             @if($blogPost->updated_at != $blogPost->created_at)
-                                <p class="flex items-center mt-1">
+                                <p class="flex items-center">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                     </svg>

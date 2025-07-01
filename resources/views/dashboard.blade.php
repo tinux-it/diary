@@ -1,19 +1,19 @@
 <x-layouts.app :title="__('Dagboek')">
-    <div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
+    <div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-4 sm:py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
+            <div class="mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                     <div class="space-y-2">
-                        <h1 class="text-3xl font-bold text-gray-800 tracking-tight">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight">
                             Je Dagboek
                         </h1>
-                        <p class="text-lg text-gray-600">
+                        <p class="text-base sm:text-lg text-gray-600">
                             Je persoonlijke ruimte voor gedachten en herinneringen
                         </p>
                     </div>
                     <a href="{{ route('blog.create') }}"
-                       class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-semibold text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 transform hover:scale-105">
+                       class="inline-flex items-center justify-center px-4 sm:px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-semibold text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 transform hover:scale-105 w-full sm:w-auto">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
@@ -39,10 +39,10 @@
             @endif
 
             <!-- Search and Filters -->
-            <div class="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden mb-8">
-                <div class="px-6 py-6 sm:px-8">
-                    <form method="GET" action="{{ route('dashboard') }}" class="space-y-6">
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <div class="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden mb-6 sm:mb-8">
+                <div class="px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+                    <form method="GET" action="{{ route('dashboard') }}" class="space-y-4 sm:space-y-6">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             <!-- Search -->
                             <div class="space-y-2">
                                 <label for="search" class="block text-sm font-semibold text-gray-800">
@@ -86,13 +86,13 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end space-x-3">
+                        <div class="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3">
                             <a href="{{ route('dashboard') }}"
-                               class="inline-flex justify-center items-center px-6 py-3 border border-gray-300 rounded-xl font-semibold text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                               class="inline-flex justify-center items-center px-4 sm:px-6 py-3 border border-gray-300 rounded-xl font-semibold text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 w-full sm:w-auto">
                                 Filters Wissen
                             </a>
                             <button type="submit"
-                                    class="inline-flex justify-center items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-semibold text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                                    class="inline-flex justify-center items-center px-4 sm:px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-semibold text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 w-full sm:w-auto">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -104,17 +104,17 @@
             </div>
 
             <!-- Diary Entries -->
-            <div class="space-y-6">
+            <div class="space-y-4 sm:space-y-6">
                 @forelse($blogPosts as $blogPost)
                     <div class="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
-                        <div class="p-6 sm:p-8">
-                            <div class="flex items-start justify-between">
+                        <div class="p-4 sm:p-6 lg:p-8">
+                            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between space-y-4 lg:space-y-0">
                                 <div class="flex-1 min-w-0">
-                                    <div class="flex items-center space-x-3 mb-4">
-                                        <h2 class="text-xl font-bold text-gray-800 hover:text-orange-600 transition-colors duration-200">
+                                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-3 sm:space-y-0 sm:space-x-3 mb-4">
+                                        <h2 class="text-lg sm:text-xl font-bold text-gray-800 hover:text-orange-600 transition-colors duration-200">
                                             <a href="{{ route('blog.show', $blogPost) }}">{{ $blogPost->subject }}</a>
                                         </h2>
-                                        <div class="flex items-center space-x-2">
+                                        <div class="flex flex-wrap items-center gap-2">
                                             <!-- Status Badge -->
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                                 @if($blogPost->state === 'published') bg-green-100 text-green-800
@@ -151,18 +151,18 @@
                                         <div class="mb-4">
                                             <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
                                                  alt="{{ $blogPost->subject }}"
-                                                 class="w-20 h-20 object-contain rounded-xl shadow-md border border-orange-100">
+                                                 class="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-xl shadow-md border border-orange-100">
                                         </div>
                                     @endif
 
                                     <!-- Content Preview -->
-                                    <div class="text-gray-600 mb-4 line-clamp-3">
+                                    <div class="text-gray-600 mb-4 line-clamp-3 text-sm sm:text-base">
                                         {!! Str::limit($blogPost->content, 200) !!}
                                     </div>
 
                                     <!-- Meta Information -->
-                                    <div class="flex items-center justify-between text-sm text-gray-500">
-                                        <div class="flex items-center space-x-4">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-gray-500 space-y-2 sm:space-y-0">
+                                        <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4">
                                             <span class="flex items-center">
                                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -180,9 +180,9 @@
                                 </div>
 
                                 <!-- Actions -->
-                                <div class="flex items-center space-x-2 ml-6">
+                                <div class="flex items-center justify-center sm:justify-end space-x-2 lg:ml-6 lg:flex-col lg:space-x-0 lg:space-y-2">
                                     <a href="{{ route('blog.show', $blogPost) }}"
-                                       class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
+                                       class="inline-flex items-center justify-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 min-w-[44px] min-h-[44px]"
                                        title="Entry lezen">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -190,7 +190,7 @@
                                         </svg>
                                     </a>
                                     <a href="{{ route('blog.edit', $blogPost) }}"
-                                       class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
+                                       class="inline-flex items-center justify-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 min-w-[44px] min-h-[44px]"
                                        title="Entry bewerken">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -200,7 +200,7 @@
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit"
-                                                class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
+                                                class="inline-flex items-center justify-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 min-w-[44px] min-h-[44px]"
                                                 title="{{ $blogPost->is_visible ? 'Privé maken' : 'Openbaar maken' }}">
                                             @if($blogPost->is_visible)
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,7 +219,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                                class="inline-flex items-center px-3 py-2 border border-red-300 rounded-lg text-sm font-medium text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200"
+                                                class="inline-flex items-center justify-center px-3 py-2 border border-red-300 rounded-lg text-sm font-medium text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 min-w-[44px] min-h-[44px]"
                                                 title="Entry verwijderen">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -232,7 +232,7 @@
                     </div>
                 @empty
                     <div class="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden">
-                        <div class="px-6 py-12 sm:px-8 text-center">
+                        <div class="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 text-center">
                             <svg class="mx-auto h-12 w-12 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
@@ -240,7 +240,7 @@
                             <p class="mt-1 text-sm text-gray-500">Begin vandaag met het schrijven van je eerste dagboek entry.</p>
                             <div class="mt-6">
                                 <a href="{{ route('blog.create') }}"
-                                   class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                                   class="inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 w-full sm:w-auto">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                     </svg>
@@ -254,9 +254,9 @@
 
             <!-- Pagination -->
             @if($blogPosts->hasPages())
-                <div class="mt-8">
+                <div class="mt-6 sm:mt-8">
                     {{ $blogPosts->links() }}
-        </div>
+                </div>
             @endif
         </div>
     </div>

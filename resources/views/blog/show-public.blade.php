@@ -20,30 +20,33 @@
         <!-- Header -->
         <header class="bg-white/80 backdrop-blur-sm border-b border-orange-100 sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
+                <div class="flex items-center justify-between h-14 sm:h-16">
                     <div class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-2xl font-bold text-gray-800 hover:text-orange-600 transition-colors duration-200">
+                        <a href="{{ route('home') }}" class="text-xl sm:text-2xl font-bold text-gray-800 hover:text-orange-600 transition-colors duration-200">
                             Dagboek
                         </a>
                     </div>
-                    <nav class="flex items-center space-x-4">
+                    <nav class="flex items-center space-x-2 sm:space-x-4">
                         @auth
                             <a href="{{ url('/dashboard') }}"
-                               class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-medium text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                               class="inline-flex items-center px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-medium text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                                <svg class="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
-                                Mijn Dagboek
+                                <span class="hidden sm:inline">Mijn Dagboek</span>
+                                <span class="sm:hidden">Dagboek</span>
                             </a>
                         @else
                             <a href="{{ route('login') }}"
-                               class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-xl font-medium text-sm text-gray-700 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
-                                Inloggen
+                               class="inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 rounded-xl font-medium text-sm text-gray-700 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                                <span class="hidden sm:inline">Inloggen</span>
+                                <span class="sm:hidden">Login</span>
                             </a>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}"
-                                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-medium text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
-                                    Registreren
+                                   class="inline-flex items-center px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 border border-transparent rounded-xl font-medium text-sm text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                                    <span class="hidden sm:inline">Registreren</span>
+                                    <span class="sm:hidden">Registreer</span>
                                 </a>
                             @endif
                         @endauth
@@ -53,17 +56,17 @@
         </header>
 
         <!-- Blog Post Content -->
-        <div class="min-h-screen py-8">
+        <div class="min-h-screen py-4 sm:py-8">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Header -->
-                <div class="mb-8">
-                    <div class="flex items-center justify-between">
+                <div class="mb-6 sm:mb-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                         <div class="space-y-2">
-                            <h1 class="text-3xl font-bold text-gray-800 tracking-tight">{{ $blogPost->subject }}</h1>
-                            <p class="text-lg text-gray-600">Een openhartig verhaal uit het leven</p>
+                            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight">{{ $blogPost->subject }}</h1>
+                            <p class="text-base sm:text-lg text-gray-600">Een openhartig verhaal uit het leven</p>
                         </div>
                         <a href="{{ route('home') }}"
-                           class="inline-flex items-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-medium text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200">
+                           class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-medium text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 w-full sm:w-auto">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
@@ -74,9 +77,9 @@
 
                 <!-- Blog Post Content -->
                 <div class="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden">
-                    <div class="px-6 py-8 sm:px-8">
+                    <div class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
                         <!-- Meta Information -->
-                        <div class="flex items-center space-x-4 text-sm text-gray-500 mb-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-gray-500 mb-6">
                             <span class="flex items-center">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -94,15 +97,15 @@
 
                         <!-- Featured Image -->
                         @if($blogPost->image)
-                            <div class="mb-8">
+                            <div class="mb-6 sm:mb-8">
                                 <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
                                      alt="{{ $blogPost->subject }}"
-                                     class="w-full h-64 object-contain rounded-2xl shadow-lg">
+                                     class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                             </div>
                         @endif
 
                         <!-- Content -->
-                        <div class="prose max-w-none">
+                        <div class="prose max-w-none prose-sm sm:prose-base">
                             <div class="ql-editor">
                                 {!! $blogPost->content !!}
                             </div>
@@ -114,7 +117,7 @@
 
         <!-- Footer Message -->
         <footer>
-            <div class="mt-12 text-center">
+            <div class="mt-8 sm:mt-12 text-center">
                 <div class="text-gray-500 text-xs mt-4"><a href="https://tomemming.nl">Made with ❤️ by Tom Emming</a></div>
             </div>
         </footer>
