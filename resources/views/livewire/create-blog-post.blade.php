@@ -106,7 +106,11 @@ $resetForm = function () {
                         <div class="space-y-1 text-center">
                             @if($image)
                                 <div class="mb-4">
-                                    <img src="{{ $image->temporaryUrl() }}" alt="Preview" class="mx-auto h-32 w-auto rounded-lg">
+                                    <img src="{{ $image->temporaryUrl() }}" 
+                                         alt="Preview" 
+                                         class="mx-auto h-32 w-auto rounded-lg shadow-md"
+                                         loading="lazy"
+                                         onerror="this.style.display='none'">
                                 </div>
                             @else
                                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">

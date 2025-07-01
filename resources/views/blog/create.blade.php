@@ -304,7 +304,7 @@
             color: rgb(249 115 22);
         }
 
-        /* Make images resizable */
+        /* Make images resizable and responsive */
         .ql-editor img {
             resize: both;
             overflow: auto;
@@ -313,15 +313,26 @@
             cursor: pointer;
             border: 2px solid transparent;
             transition: border-color 0.2s ease;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .ql-editor img:hover {
             border-color: rgb(251 146 60);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         .ql-editor img:focus {
             border-color: rgb(249 115 22);
             outline: none;
+        }
+
+        /* Responsive image handling in editor */
+        @media (max-width: 640px) {
+            .ql-editor img {
+                max-width: 100%;
+                height: auto;
+            }
         }
 
         /* Custom toggle switch styling */
@@ -394,7 +405,7 @@
                     reader.onload = function(e) {
                         previewContainer.innerHTML = `
                 <div class="relative mt-4">
-                    <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-contain rounded-2xl shadow-lg">
+                                            <img src="${e.target.result}" alt="Preview" class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                     <div class="absolute top-2 right-2">
                         <button type="button" onclick="removeImage()" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors duration-200">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -35,7 +35,11 @@ mount(function ($postId) {
 
                         @if($post->image)
                             <div class="mb-4">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->subject }}" class="w-full h-64 object-contain rounded-lg">
+                                <img src="{{ Storage::url($post->image) }}" 
+                                     alt="{{ $post->subject }}" 
+                                     class="w-full h-48 sm:h-64 md:h-80 object-contain rounded-lg shadow-lg"
+                                     loading="lazy"
+                                     onerror="this.style.display='none'">
                             </div>
                         @endif
 
@@ -59,6 +63,24 @@ mount(function ($postId) {
                                 {!! $post->content !!}
                             </div>
                         </div>
+
+                        <style>
+                            /* Ensure images in content are responsive */
+                            .ql-editor img {
+                                max-width: 100%;
+                                height: auto;
+                                border-radius: 0.5rem;
+                                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                                margin: 1rem 0;
+                            }
+                            
+                            @media (max-width: 640px) {
+                                .ql-editor img {
+                                    max-width: 100%;
+                                    height: auto;
+                                }
+                            }
+                        </style>
                     </div>
                 </div>
             </div>

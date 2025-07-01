@@ -101,7 +101,11 @@ $blogPosts = function () {
                         <div class="flex items-start justify-between">
                             <div class="flex items-start space-x-4 flex-1">
                                 @if($post->image)
-                                    <img src="{{ Storage::url($post->image) }}" alt="{{ $post->subject }}" class="h-16 w-16 rounded-lg object-contain flex-shrink-0">
+                                    <img src="{{ Storage::url($post->image) }}" 
+                                         alt="{{ $post->subject }}" 
+                                         class="h-16 w-16 rounded-lg object-contain flex-shrink-0"
+                                         loading="lazy"
+                                         onerror="this.style.display='none'">
                                 @else
                                     <div class="h-16 w-16 rounded-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
                                         <svg class="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

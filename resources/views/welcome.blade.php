@@ -81,7 +81,9 @@
                                                     <div class="mb-6 sm:mb-8">
                                                         <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
                                                              alt="{{ $blogPost->subject }}"
-                                                             class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
+                                                             class="w-full h-48 sm:h-64 md:h-80 object-contain rounded-2xl shadow-lg"
+                                                             loading="lazy"
+                                                             onerror="this.style.display='none'">
                                                     </div>
                                                 @endif
 

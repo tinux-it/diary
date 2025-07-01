@@ -67,7 +67,9 @@
                         <div class="mb-6 sm:mb-8">
                             <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
                                  alt="{{ $blogPost->subject }}"
-                                 class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
+                                 class="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-contain rounded-2xl shadow-lg"
+                                 loading="lazy"
+                                 onerror="this.style.display='none'">
                         </div>
                     @endif
 
@@ -78,6 +80,24 @@
                             {!! $blogPost->content !!}
                         </div>
                     </div>
+
+                    <style>
+                        /* Ensure images in content are responsive */
+                        .ql-editor img {
+                            max-width: 100%;
+                            height: auto;
+                            border-radius: 0.5rem;
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                            margin: 1rem 0;
+                        }
+                        
+                        @media (max-width: 640px) {
+                            .ql-editor img {
+                                max-width: 100%;
+                                height: auto;
+                            }
+                        }
+                    </style>
 
                     <!-- Created/Updated Info -->
                     <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-orange-100">
