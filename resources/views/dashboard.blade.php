@@ -148,12 +148,13 @@
 
                                     <!-- Featured Image -->
                                     @if($blogPost->image)
-                                        <div class="mb-4">
-                                            <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
+                                        <div class="mb-6 sm:mb-8">
+                                            <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
                                                  alt="{{ $blogPost->subject }}"
-                                                 class="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-xl shadow-md border border-orange-100">
+                                                 class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                                         </div>
                                     @endif
+
 
                                     <!-- Content Preview -->
                                     <div class="text-gray-600 mb-4 line-clamp-3 text-sm sm:text-base">

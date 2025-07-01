@@ -53,8 +53,9 @@ class BlogController extends Controller
             'state.in' => 'De geselecteerde status is ongeldig.',
         ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('blog-images', 'minio');
+        if ($request->image) {
+            $imageData = base64_encode(file_get_contents($request->file('image')));
+            $validated['image'] = $imageData;
         }
 
         $validated['user_id'] = auth()->id();
@@ -86,12 +87,10 @@ class BlogController extends Controller
             'is_visible' => 'nullable|boolean',
         ]);
 
+        // Handle image - if a new image is uploaded, it will overwrite the existing one
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($blogPost->image) {
-                Storage::disk('minio')->delete($blogPost->image);
-            }
-            $validated['image'] = $request->file('image')->store('blog-images', 'minio');
+            $imageData = base64_encode(file_get_contents($request->file('image')));
+            $validated['image'] = $imageData;
         }
 
         $validated['is_visible'] = $request->has('is_visible');
@@ -103,11 +102,6 @@ class BlogController extends Controller
 
     public function destroy(BlogPost $blogPost)
     {
-        // Delete image if exists
-        if ($blogPost->image) {
-            Storage::disk('minio')->delete($blogPost->image);
-        }
-
         $blogPost->delete();
 
         return redirect()->route('dashboard')->with('message', 'Dagboek entry succesvol verwijderd!');
@@ -118,23 +112,5 @@ class BlogController extends Controller
         $blogPost->update(['is_visible' => ! $blogPost->is_visible]);
 
         return redirect()->route('dashboard')->with('message', 'Zichtbaarheid van dagboek entry bijgewerkt!');
-    }
-
-    /**
-     * Generate a pre-signed URL for an image
-     */
-    public static function getImageUrl($imagePath)
-    {
-        if (! $imagePath) {
-            return null;
-        }
-
-        try {
-            // Try to get a pre-signed URL (expires in 1 hour)
-            return Storage::disk('minio')->temporaryUrl($imagePath, now()->addHour());
-        } catch (\Exception $e) {
-            // Fallback to regular URL if pre-signed fails
-            return Storage::disk('minio')->url($imagePath);
-        }
     }
 }

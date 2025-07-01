@@ -78,10 +78,10 @@
                                             <div class="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
                                                 <!-- Featured Image -->
                                                 @if($blogPost->image)
-                                                    <div class="flex-shrink-0 flex justify-center sm:justify-start">
-                                                        <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
+                                                    <div class="mb-6 sm:mb-8">
+                                                        <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
                                                              alt="{{ $blogPost->subject }}"
-                                                             class="w-20 h-20 sm:w-24 sm:h-24 object-contain rounded-xl shadow-md border border-orange-200">
+                                                             class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                                                     </div>
                                                 @endif
 

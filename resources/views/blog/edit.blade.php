@@ -127,7 +127,9 @@
                                 @if($blogPost->image)
                                     <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
                                         <div class="flex items-center space-x-4">
-                                            <img src="{{ Storage::disk('minio')->url($blogPost->image) }}" alt="Current image" class="h-20 w-20 object-contain rounded-lg shadow-sm">
+                                            <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
+                                                 alt="{{ $blogPost->subject }}"
+                                                 class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                                             <div>
                                                 <p class="text-sm font-medium text-gray-800">Huidige foto</p>
                                                 <p class="text-xs text-gray-500">Upload een nieuwe foto om deze te vervangen</p>
@@ -135,6 +137,7 @@
                                         </div>
                                     </div>
                                 @endif
+
                                 <div class="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-dashed border-orange-200 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200">
                                     <div class="space-y-4 text-center">
                                         <div class="flex justify-center">
@@ -441,7 +444,7 @@
             const imageUploadArea = imageInput.closest('.space-y-2').querySelector('.mt-1');
 
             // Reset input
-            imageInput.value = '';
+            // imageInput.value = '';
 
             // Check if there's an existing image to show
             const existingImageContainer = document.querySelector('.mb-4.p-4.bg-orange-50');

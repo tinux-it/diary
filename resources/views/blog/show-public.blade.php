@@ -95,14 +95,14 @@
                             </span>
                         </div>
 
-                        <!-- Featured Image -->
                         @if($blogPost->image)
                             <div class="mb-6 sm:mb-8">
-                                <img src="{{ \App\Http\Controllers\BlogController::getImageUrl($blogPost->image) }}"
+                                <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
                                      alt="{{ $blogPost->subject }}"
                                      class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
                             </div>
                         @endif
+
 
                         <!-- Content -->
                         <div class="prose max-w-none prose-sm sm:prose-base">
