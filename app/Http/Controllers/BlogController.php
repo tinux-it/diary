@@ -38,7 +38,7 @@ class BlogController extends Controller
         $validated = $request->validate([
             'subject' => 'required|min:3|max:255',
             'content' => 'required|min:10',
-            'image' => 'nullable|image|max:25600',
+            'image' => 'nullable|image',
             'state' => 'required|in:draft,published,archived',
             'is_visible' => 'nullable|boolean',
         ], [
