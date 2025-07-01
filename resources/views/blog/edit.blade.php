@@ -120,24 +120,10 @@
                             <!-- Image Upload -->
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-800">
-                                    Voeg een Foto Toe (Optioneel)
+                                    Voeg een Foto Toe of overschrijf huidige afbeelding (optioneel)
                                     <br>
                                     <small>Deze afbeelding wordt getoond op het overzicht en bovenaan de pagina zelf. Meer foto's kun je in het bericht hierboven toevoegen.</small>
                                 </label>
-                                @if($blogPost->image)
-                                    <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
-                                        <div class="flex items-center space-x-4">
-                                            <img src="data:image/jpeg;base64,{{ $blogPost->image }}"
-                                                 alt="{{ $blogPost->subject }}"
-                                                 class="w-full h-48 sm:h-64 object-contain rounded-2xl shadow-lg">
-                                            <div>
-                                                <p class="text-sm font-medium text-gray-800">Huidige foto</p>
-                                                <p class="text-xs text-gray-500">Upload een nieuwe foto om deze te vervangen</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
                                 <div class="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-dashed border-orange-200 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200">
                                     <div class="space-y-4 text-center">
                                         <div class="flex justify-center">
@@ -155,13 +141,14 @@
                                         <p class="text-xs text-gray-500">PNG, JPG, GIF tot 1MB</p>
                                     </div>
                                 </div>
+                                <div id="image-preview"></div>
                                 @error('image')
-                                    <div class="flex items-center mt-2 text-red-600">
-                                        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                        </svg>
-                                        <p class="text-sm font-medium">{{ $message }}</p>
-                                    </div>
+                                <div class="flex items-center mt-2 text-red-600">
+                                    <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                    <p class="text-sm font-medium">{{ $message }}</p>
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -398,108 +385,39 @@
 
             imageInput.addEventListener('change', function() {
                 const file = this.files[0];
-                if (file) {
-                    // Show loading state
-                    imageUploadArea.innerHTML = `
-                        <div class="flex items-center justify-center px-6 py-8">
-                            <div class="text-center">
-                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-2"></div>
-                                <p class="text-sm text-gray-600">Afbeelding wordt geladen...</p>
-                            </div>
-                        </div>
-                    `;
+                const previewContainer = document.getElementById('image-preview');
 
-                    // Create preview
+                if (file) {
+                    // Clear previous preview
+                    previewContainer.innerHTML = '';
+
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        imageUploadArea.innerHTML = `
-                            <div class="relative">
-                                <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-contain rounded-2xl shadow-lg">
-                                <div class="absolute top-2 right-2">
-                                    <button type="button" onclick="removeNewImage()" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors duration-200">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                                    <div class="flex items-center text-green-700">
-                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        <span class="text-sm font-medium">Nieuwe afbeelding geselecteerd: ${file.name}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
+                        previewContainer.innerHTML = `
+                <div class="relative mt-4">
+                    <img src="${e.target.result}" alt="Preview" class="w-full h-48 object-contain rounded-2xl shadow-lg">
+                    <div class="absolute top-2 right-2">
+                        <button type="button" onclick="removeImage()" class="bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
                     };
                     reader.readAsDataURL(file);
                 }
             });
         });
 
-        // Function to remove new selected image (restore to original state)
-        function removeNewImage() {
+        // Function to remove selected image
+        function removeImage() {
             const imageInput = document.getElementById('image');
-            const imageUploadArea = imageInput.closest('.space-y-2').querySelector('.mt-1');
+            const previewContainer = document.getElementById('image-preview');
 
-            // Reset input
-            // imageInput.value = '';
-
-            // Check if there's an existing image to show
-            const existingImageContainer = document.querySelector('.mb-4.p-4.bg-orange-50');
-            if (existingImageContainer) {
-                // Show existing image info
-                imageUploadArea.innerHTML = `
-                    <div class="mb-4 p-4 bg-orange-50 rounded-xl border border-orange-200">
-                        <div class="flex items-center space-x-4">
-                            <img src="{{ Storage::disk('minio')->url($blogPost->image) }}" alt="Current image" class="h-20 w-20 object-contain rounded-lg shadow-sm">
-                            <div>
-                                <p class="text-sm font-medium text-gray-800">Huidige foto</p>
-                                <p class="text-xs text-gray-500">Upload een nieuwe foto om deze te vervangen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center px-6 pt-8 pb-8 border-2 border-dashed border-orange-200 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200">
-                        <div class="space-y-4 text-center">
-                            <div class="flex justify-center">
-                                <svg class="mx-auto h-12 w-12 text-orange-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                            <div class="flex text-sm text-gray-600">
-                                <label for="image" class="relative cursor-pointer bg-white rounded-lg font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500 transition-colors duration-200 px-4 py-2 border border-orange-200">
-                                    <span>Kies een foto</span>
-                                    <input id="image" name="image" type="file" class="sr-only" accept="image/*">
-                                </label>
-                                <p class="pl-3 self-center">of sleep en zet neer</p>
-                            </div>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF tot 1MB</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                // No existing image, show empty upload area
-                imageUploadArea.innerHTML = `
-                    <div class="flex justify-center px-6 pt-8 pb-8 border-2 border-dashed border-orange-200 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200">
-                        <div class="space-y-4 text-center">
-                            <div class="flex justify-center">
-                                <svg class="mx-auto h-12 w-12 text-orange-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                            <div class="flex text-sm text-gray-600">
-                                <label for="image" class="relative cursor-pointer bg-white rounded-lg font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500 transition-colors duration-200 px-4 py-2 border border-orange-200">
-                                    <span>Kies een foto</span>
-                                    <input id="image" name="image" type="file" class="sr-only" accept="image/*">
-                                </label>
-                                <p class="pl-3 self-center">of sleep en zet neer</p>
-                            </div>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF tot 1MB</p>
-                        </div>
-                    </div>
-                `;
-            }
+            imageInput.value = ''; // optional: resets the input
+            previewContainer.innerHTML = ''; // removes the preview
         }
     </script>
 </x-layouts.app>

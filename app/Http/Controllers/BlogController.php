@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -79,16 +78,30 @@ class BlogController extends Controller
 
     public function update(Request $request, BlogPost $blogPost)
     {
+        // Debug information
+        \Log::info('Update request received', [
+            'has_file_image' => $request->hasFile('image'),
+            'has_image' => $request->has('image'),
+            'all_files' => $request->allFiles(),
+            'all_input' => $request->all(),
+            'content_type' => $request->header('Content-Type'),
+        ]);
+
         $validated = $request->validate([
             'subject' => 'required|min:3|max:255',
             'content' => 'required|min:10',
             'image' => 'nullable|image',
             'state' => 'required|in:draft,published,archived',
             'is_visible' => 'nullable|boolean',
+            'remove_image' => 'nullable|boolean',
         ]);
 
-        // Handle image - if a new image is uploaded, it will overwrite the existing one
-        if ($request->hasFile('image')) {
+        // Handle image removal
+        if ($request->has('remove_image') && $request->remove_image) {
+            $validated['image'] = null;
+        }
+        // Handle new image upload - if a new image is uploaded, it will overwrite the existing one
+        elseif ($request->hasFile('image')) {
             $imageData = base64_encode(file_get_contents($request->file('image')));
             $validated['image'] = $imageData;
         }
