@@ -26,31 +26,13 @@ ARG LOCAL_GROUP_ID=1000
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/download/2.7.38/install-php-extensions /usr/local/bin/
 
 RUN apk add --no-cache --virtual .persistent-deps \
-    fcgi \
-    git \
-    openssh-client \
-    patch \
+        fcgi git openssh-client patch \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && chmod +x /usr/local/bin/install-php-extensions \
     && install-php-extensions \
-        APCu-stable \
-        bcmath-stable \
-        exif-stable \
-        gettext-stable \
-        gmp-stable \
-        intl \
-        opcache \
-        pcntl-stable \
-        pdo_mysql-stable \
-        pdo_pgsql-stable \
-        redis-stable \
-        shmop-stable \
-        soap-stable \
-        sockets-stable \
-        sysvmsg-stable \
-        sysvsem-stable \
-        sysvshm-stable \
-        xsl-stable \
-        zip-stable \
+        apcu bcmath exif gettext gmp intl pcntl pdo_mysql pdo_pgsql \
+        redis shmop soap sockets sysvmsg sysvsem sysvshm xsl zip \
+    && apk del .build-deps \
     && docker-php-source delete \
     && apk --no-cache -U upgrade \
     && rm -rf /tmp/* \
